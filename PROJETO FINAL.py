@@ -205,9 +205,9 @@ def inter_GUI():
             if event == "Adicionar Autor":
                 autores_contador += 1
                 window.extend_layout(window, [
-                    [sg.Text(f"Nome do Autor {autores_contador}:", font="Arial 8"), sg.Input(key=f"autor_nome_{autores_contador}", font="Arial 11", size=(20, 1)),
-                    sg.Text(f"Afiliação do Autor {autores_contador}:", font="Arial 8"), sg.Input(key=f"autor_afiliação_{autores_contador}", font="Arial 11", size=(20, 1)),
-                    sg.Text(f"ORCID do Autor {autores_contador}:", font="Arial 8"), sg.Input(key=f"autor_orcid_{autores_contador}", font="Arial 11", size=(20, 1))]
+                    [sg.Text(f"Nome do Autor {autores_contador}:", font="Arial 11"), sg.Input(key=f"autor_nome_{autores_contador}", font="Arial 11", size=(20, 1)),
+                    sg.Text(f"Afiliação do Autor {autores_contador}:", font="Arial 11"), sg.Input(key=f"autor_afiliação_{autores_contador}", font="Arial 11", size=(20, 1)),
+                    sg.Text(f"ORCID do Autor {autores_contador}:", font="Arial 11"), sg.Input(key=f"autor_orcid_{autores_contador}", font="Arial 11", size=(20, 1))]
                 ])
             
             if event == "Salvar":
@@ -299,7 +299,7 @@ def inter_GUI():
                     layout.append([sg.Text("Resumo:", font="Arial 11 bold")])
                     layout.append([sg.Multiline(public["abstract"], size=(80, 10), disabled=True, font="Arial 10")])
                 if "keywords" in public:
-                    layout.append([sg.Text("URL:", font="Arial 11 bold"), sg.Text(public["keywords"], font="Arial 10")])
+                    layout.append([sg.Text("Keywords:", font="Arial 11 bold"), sg.Text(public["keywords"], font="Arial 10")])
                 if "doi" in public:
                     layout.append([sg.Text("DOI:", font="Arial 11 bold"), sg.Text(public["doi"], font="Arial 10")])
                 if "pdf" in public:
@@ -392,7 +392,7 @@ def inter_GUI():
                 novo_valor = values["NOVO_VALOR"].strip()
                 if novo_valor:
                     artigo_atualizar["keywords"] = novo_valor
-                    sg.popup("Resumo atualizada com sucesso!")
+                    sg.popup("Palavras-chave atualizadas com sucesso!")
                 else:
                     sg.popup("Por favor, insira um valor para o resumo.")
             window.close()
@@ -402,7 +402,7 @@ def inter_GUI():
         layout = [[sg.Text("Insira os dados do(s) autor(es) ", font="Arial 11 bold")],
                 [sg.Text("Nome do Autor:", font="Arial 11"), sg.InputText(key="autor_nome_1", font="Arial 11", size=(20, 1)),
                     sg.Text("Afiliação do Autor:", font="Arial 11"), sg.InputText(key="autor_afiliação_1", font="Arial 11", size=(20, 1)),
-                    sg.Text("ORCID do Autor:", font="Arial 11"), sg.InInputTextput(key="autor_orcid_1", font="Arial 11", size=(20, 1))],
+                    sg.Text("ORCID do Autor:", font="Arial 11"), sg.InputText(key="autor_orcid_1", font="Arial 11", size=(20, 1))],
                 [sg.Button("Adicionar Autor", size=(14, 1), font="Arial 11")],
                 [sg.Button("Atualizar", size=(9, 1), font="Arial 11"), sg.Button("Cancelar", size=(9, 1), font="Arial 11")]
         ]
@@ -438,6 +438,7 @@ def inter_GUI():
                     autor_sem_vazios = {k: v for k, v in autor.items() if v}
                     authors.append(autor_sem_vazios)
                 artigo_atualizar["authors"] = authors
+                sg.popup("Autores atualizados com sucesso!")
         
                 window.close()
                 return artigo_atualizar
@@ -630,6 +631,8 @@ def inter_GUI():
             if "abstract" in public:
                 layout.append([sg.Text("Resumo:", font="Arial 11 bold")])
                 layout.append([sg.Multiline(public["abstract"], size=(80, 10), disabled=True, font="Arial 10")])
+            if "keywords" in public:
+                layout.append([sg.Text("Keywords:", font="Arial 11 bold"), sg.Text(public["keywords"], font="Arial 10")])
             if "doi" in public:
                 layout.append([sg.Text("DOI:", font="Arial 11 bold"), sg.Text(public["doi"], font="Arial 10")])
             if "pdf" in public:
